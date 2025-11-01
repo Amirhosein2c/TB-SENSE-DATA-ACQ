@@ -120,6 +120,24 @@ input, textarea, select {
   font-size: 16px; /* Prevents zoom on iOS */
   color: #111 !important; /* Force readable dark text */
   background-color: #fff !important; /* Maintain white background */
+  -webkit-text-fill-color: #111 !important; /* Fix for iOS Safari */
+  caret-color: #111 !important; /* Ensure visible cursor */
+}
+
+/* Ensure selected text is visible (fix white-on-white issue) */
+input::selection,
+textarea::selection,
+select::selection {
+  background-color: #1193d4 !important; /* Highlight color */
+  color: #fff !important; /* Selected text color */
+}
+
+/* For iOS Safari specifically */
+input::-moz-selection,
+textarea::-moz-selection,
+select::-moz-selection {
+  background-color: #1193d4 !important;
+  color: #fff !important;
 }
 
 .dark input, .dark textarea, .dark select {
