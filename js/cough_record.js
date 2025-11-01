@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (isRecording) {
         stopRecording();
       }
-      window.location.href = 'passport_scan.html';
+      window.location.href = 'index.html';
     });
   }
 
@@ -65,107 +65,107 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Function to load passport data
-  function loadPassportData() {
-    const passportDataStr = sessionStorage.getItem('passportData');
-    const nameField = document.getElementById('nameField');
-    const dobField = document.getElementById('dobField');
-    const passportField = document.getElementById('passportField');
-    const nationalityField = document.getElementById('nationalityField');
-    const expirationField = document.getElementById('expirationField');
-    const loadingIndicator = document.getElementById('loadingIndicator');
+  // // Function to load passport data
+  // function loadPassportData() {
+  //   const passportDataStr = sessionStorage.getItem('passportData');
+  //   const nameField = document.getElementById('nameField');
+  //   const dobField = document.getElementById('dobField');
+  //   const passportField = document.getElementById('passportField');
+  //   const nationalityField = document.getElementById('nationalityField');
+  //   const expirationField = document.getElementById('expirationField');
+  //   const loadingIndicator = document.getElementById('loadingIndicator');
 
-    if (passportDataStr) {
-      try {
-        let parsedData = JSON.parse(passportDataStr);
+  //   if (passportDataStr) {
+  //     try {
+  //       let parsedData = JSON.parse(passportDataStr);
         
-        // Handle array response - webhook returns an array with one object
-        const data = Array.isArray(parsedData) ? parsedData[0] : parsedData;
+  //       // Handle array response - webhook returns an array with one object
+  //       const data = Array.isArray(parsedData) ? parsedData[0] : parsedData;
         
-        console.log('Passport data:', data); // Debug log
+  //       console.log('Passport data:', data); // Debug log
         
-        // Remove loading indicator
-        if (loadingIndicator) {
-          loadingIndicator.remove();
-        }
+  //       // Remove loading indicator
+  //       if (loadingIndicator) {
+  //         loadingIndicator.remove();
+  //       }
 
-        // Display full name
-        if (nameField && data.fullName) {
-          nameField.innerHTML = `
-            ${data.fullName}
-            <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
-          `;
-        } else if (nameField) {
-          nameField.innerHTML = `
-            <span class="text-slate-400">Not available</span>
-          `;
-        }
+  //       // Display full name
+  //       if (nameField && data.fullName) {
+  //         nameField.innerHTML = `
+  //           ${data.fullName}
+  //           <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
+  //         `;
+  //       } else if (nameField) {
+  //         nameField.innerHTML = `
+  //           <span class="text-slate-400">Not available</span>
+  //         `;
+  //       }
 
-        // Display date of birth
-        if (dobField && data.dateOfBirth) {
-          dobField.innerHTML = `
-            ${data.dateOfBirth}
-            <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
-          `;
-        } else if (dobField) {
-          dobField.innerHTML = `
-            <span class="text-slate-400">Not available</span>
-          `;
-        }
+  //       // Display date of birth
+  //       if (dobField && data.dateOfBirth) {
+  //         dobField.innerHTML = `
+  //           ${data.dateOfBirth}
+  //           <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
+  //         `;
+  //       } else if (dobField) {
+  //         dobField.innerHTML = `
+  //           <span class="text-slate-400">Not available</span>
+  //         `;
+  //       }
 
-        // Display passport number
-        if (passportField && data.passportNumber) {
-          passportField.innerHTML = `
-            ${data.passportNumber}
-            <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
-          `;
-        } else if (passportField) {
-          passportField.innerHTML = `
-            <span class="text-slate-400">Not available</span>
-          `;
-        }
+  //       // Display passport number
+  //       if (passportField && data.passportNumber) {
+  //         passportField.innerHTML = `
+  //           ${data.passportNumber}
+  //           <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
+  //         `;
+  //       } else if (passportField) {
+  //         passportField.innerHTML = `
+  //           <span class="text-slate-400">Not available</span>
+  //         `;
+  //       }
 
-        // Display nationality
-        if (nationalityField && data.nationality) {
-          nationalityField.innerHTML = `
-            ${data.nationality}
-            <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
-          `;
-        } else if (nationalityField) {
-          nationalityField.innerHTML = `
-            <span class="text-slate-400">Not available</span>
-          `;
-        }
+  //       // Display nationality
+  //       if (nationalityField && data.nationality) {
+  //         nationalityField.innerHTML = `
+  //           ${data.nationality}
+  //           <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
+  //         `;
+  //       } else if (nationalityField) {
+  //         nationalityField.innerHTML = `
+  //           <span class="text-slate-400">Not available</span>
+  //         `;
+  //       }
 
-        // Display expiration date
-        if (expirationField && data.expirationDate) {
-          expirationField.innerHTML = `
-            ${data.expirationDate}
-            <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
-          `;
-        } else if (expirationField) {
-          expirationField.innerHTML = `
-            <span class="text-slate-400">Not available</span>
-          `;
-        }
+  //       // Display expiration date
+  //       if (expirationField && data.expirationDate) {
+  //         expirationField.innerHTML = `
+  //           ${data.expirationDate}
+  //           <span class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
+  //         `;
+  //       } else if (expirationField) {
+  //         expirationField.innerHTML = `
+  //           <span class="text-slate-400">Not available</span>
+  //         `;
+  //       }
 
-      } catch (error) {
-        console.error('Error parsing passport data:', error);
-        console.error('Raw data:', passportDataStr);
-        if (loadingIndicator) {
-          loadingIndicator.textContent = 'Error loading data';
-          loadingIndicator.classList.add('text-red-500');
-        }
-      }
-    } else {
-      // No data found
-      console.warn('No passport data in sessionStorage');
-      if (loadingIndicator) {
-        loadingIndicator.textContent = 'No data available';
-        loadingIndicator.classList.add('text-red-500');
-      }
-    }
-  }
+  //     } catch (error) {
+  //       console.error('Error parsing passport data:', error);
+  //       console.error('Raw data:', passportDataStr);
+  //       if (loadingIndicator) {
+  //         loadingIndicator.textContent = 'Error loading data';
+  //         loadingIndicator.classList.add('text-red-500');
+  //       }
+  //     }
+  //   } else {
+  //     // No data found
+  //     console.warn('No passport data in sessionStorage');
+  //     if (loadingIndicator) {
+  //       loadingIndicator.textContent = 'No data available';
+  //       loadingIndicator.classList.add('text-red-500');
+  //     }
+  //   }
+  // }
 
   // Function to load and display previous recording duration
   function loadRecordingDuration() {
