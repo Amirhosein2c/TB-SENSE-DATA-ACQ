@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const durationSecondsSpan = document.getElementById('durationSeconds');
   
   // Load passport data from sessionStorage
-  loadPassportData();
+  // loadPassportData();
   
   // Load and display previous recording duration if exists
   loadRecordingDuration();
