@@ -118,6 +118,20 @@ video, canvas {
 /* Improve form input on mobile */
 input, textarea, select {
   font-size: 16px; /* Prevents zoom on iOS */
+  color: #111 !important; /* Force readable dark text */
+  background-color: #fff !important; /* Maintain white background */
+}
+
+.dark input, .dark textarea, .dark select {
+  color: #f8fafc !important; /* Light text for dark mode */
+  background-color: #1e293b !important; /* Dark background for dark mode */
+}
+
+/* Force readable text color for all inputs regardless of theme */
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], textarea, select {
+  color: #111 !important;
+  background-color: #fff !important;
+  -webkit-text-fill-color: #111 !important; /* Fix for iOS Safari */
 }
 
 /* Safe area for notched devices */

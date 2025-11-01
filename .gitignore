@@ -60,3 +60,5 @@ TROUBLESHOOTING.md
 PERMISSIONS_GUIDE.md
 deploy-to-github.sh
 start-server.sh
+# Local Netlify folder
+.netlify
