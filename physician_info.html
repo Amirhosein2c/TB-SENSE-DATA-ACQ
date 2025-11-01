@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="TB Sense - Passport Details & Cough Recording"
+    />
+    <meta name="theme-color" content="#1193d4" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <title>TB Sense - Passport Details</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png" />
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/pwa-init.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/physician_info.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="flex flex-col h-screen justify-between">
+      <div class="flex-grow">
+        <header
+          class="bg-background-light dark:bg-background-dark sticky top-0 z-10 border-b border-background-light/10 dark:border-background-dark/10 shadow-sm"
+        >
+          <div class="flex items-center justify-between p-4">
+            <button id="backBtn" class="text-slate-800 dark:text-slate-200">
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"
+                ></path>
+              </svg>
+            </button>
+            <h1
+              class="text-lg font-bold text-slate-900 dark:text-slate-50 flex-1 text-center"
+            >
+              TB Sense
+            </h1>
+            <div class="w-8"></div>
+          </div>
+        </header>
+        <main class="p-6 flex flex-col h-[calc(100vh-64px)]">
+          <h2
+            class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6 text-right"
+          >
+            اطلاعات پزشک معالج
+          </h2>
+          <form id="physicianForm" class="space-y-4 mb-8">
+            <div>
+              <label
+                for="physicianName"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >نام و نام خانوادگی پزشک</label
+              >
+              <input
+                type="text"
+                id="physicianName"
+                name="physicianName"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
+            </div>
+          </form>
+          <div class="flex-grow flex flex-col justify-end gap-4">
+            <button
+              id="nextBtn"
+              class="w-full flex items-center justify-center gap-3 bg-primary text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-primary/90 transition-colors"
+            >
+              <span id="nextBtnText" class="text-lg">ورود اطلاعات بیمار</span>
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

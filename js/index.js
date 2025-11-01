@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (beginScanBtn) {
     beginScanBtn.addEventListener('click', function() {
-      window.location.href = 'cough_record.html';
+      window.location.href = 'physician_info.html';
     });
   }
 });

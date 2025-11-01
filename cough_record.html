@@ -65,60 +65,85 @@
           </div>
         </header>
         <main class="p-6 flex flex-col h-[calc(100vh-64px)]">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6">
+          <h2
+            class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6 text-right"
+          >
             ورود اطلاعات
           </h2>
-          <div
-            id="patientDetails"
-            class="bg-white dark:bg-slate-800 rounded-lg shadow-md divide-y divide-slate-200 dark:divide-slate-700 mb-8"
-          >
-            <div class="p-4 flex justify-between items-center">
-              <span class="text-sm text-slate-500 dark:text-slate-400"
-                >نام بیمار</span
+          <form id="patientForm" class="space-y-4 mb-8">
+            <div>
+              <label
+                for="patientName"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >نام بیمار</label
               >
-              <span
-                id="nameField"
-                class="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2"
+              <input
+                type="text"
+                id="patientName"
+                name="patientName"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="nationalId"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >کد ملی</label
               >
-                <span id="loadingIndicator" class="text-slate-400"></span>
-              </span>
+              <input
+                type="text"
+                id="nationalId"
+                name="nationalId"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
             </div>
-            <div class="p-4 flex justify-between items-center">
-              <span class="text-sm text-slate-500 dark:text-slate-400"
-                >کد ملی
-              </span>
-              <span
-                id="dobField"
-                class="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2"
+            <div>
+              <label
+                for="patientAge"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >سن بیمار (سال)</label
               >
-              </span>
-            </div>
-            <div class="p-4 flex justify-between items-center">
-              <span class="text-sm text-slate-500 dark:text-slate-400"></span>
-              <span
-                id="passportField"
-                class="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2"
-                >سن بیمار (سال)
-              </span>
-            </div>
-            <div class="p-4 flex justify-between items-center">
-              <span class="text-sm text-slate-500 dark:text-slate-400"></span>
-              <span
-                id="nationalityField"
-                class="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2"
-                >سن بیمار (سال)
-              </span>
+              <input
+                type="number"
+                id="patientAge"
+                name="patientAge"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
             </div>
 
-            <div class="p-4 flex justify-between items-center">
-              <span class="text-sm text-slate-500 dark:text-slate-400"></span>
-              <span
-                id="expirationField"
-                class="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2"
+            <div>
+              <label
+                for="patientGender"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >جنسیت بیمار</label
               >
-              </span>
+              <input
+                type="text"
+                id="patientGender"
+                name="patientGender"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
             </div>
-          </div>
+
+            <div>
+              <label
+                for="patientBGDisease"
+                class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
+                >سابقه بیماری زمینه ای</label
+              >
+              <input
+                type="text"
+                id="patientBGDisease"
+                name="patientBGDisease"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                required
+              />
+            </div>
+          </form>
           <div class="flex-grow flex flex-col justify-end gap-4">
             <!-- Recording Duration Display -->
             <div id="recordingDuration" class="text-center py-2 hidden">
