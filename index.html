@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="TB Sense - Streamlining tuberculosis screening at borders using AI-powered passport scanning and cough analysis"
+    />
+    <meta name="theme-color" content="#1193d4" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TB Sense" />
+
+    <title>TB Sense - Welcome</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="icons/icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="icons/icon-192x192.png"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="icons/icon-32x32.png"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="js/pwa-init.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-background-light font-display text-content-light">
+    <div class="flex flex-col h-screen justify-between">
+      <main
+        class="flex-grow flex flex-col items-center justify-center text-center px-6"
+      >
+        <div class="flex items-center justify-center mb-6">
+          <span
+            class="material-symbols-outlined text-primary"
+            style="font-size: 80px"
+          >
+            health_and_safety
+          </span>
+        </div>
+        <h1 class="text-4xl font-bold text-primary mb-2">TB Sense</h1>
+        <p class="text-lg text-gray-600 mb-12">
+          Streamlining tuberculosis screening at borders.
+        </p>
+      </main>
+      <footer class="p-24">
+        <button
+          id="beginScanBtn"
+          class="w-full bg-primary text-white font-bold h-14 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-primary/40 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+        >
+          Begin Scan
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>
