@@ -3,12 +3,12 @@
   "short_name": "TB Sense",
   "id": "TB Sense",
   "description": "Streamlining tuberculosis screening at borders using AI-powered passport scanning and cough analysis",
-  "start_url": "/TB_Sense/index.html",
+  "start_url": "/TB-SENSE-DATA-ACQ/index.html",
   "display": "standalone",
   "background_color": "#f6f7f8",
   "theme_color": "#1193d4",
   "orientation": "portrait",
-  "scope": "/TB_Sense/",
+  "scope": "/TB-SENSE-DATA-ACQ/",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -59,7 +59,10 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["health", "medical"],
+  "categories": [
+    "health",
+    "medical"
+  ],
   "screenshots": [],
   "related_applications": [],
   "prefer_related_applications": false

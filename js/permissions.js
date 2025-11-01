@@ -10,17 +10,22 @@ class PermissionManager {
   async checkPermissions() {
     try {
       // Check camera permission
-      const cameraPermission = await navigator.permissions.query({ name: 'camera' });
+      // const cameraPermission = await navigator.permissions.query({ name: 'camera' });
       const micPermission = await navigator.permissions.query({ name: 'microphone' });
       
-      console.log('Camera permission:', cameraPermission.state);
+      // console.log('Camera permission:', cameraPermission.state);
       console.log('Microphone permission:', micPermission.state);
       
-      if (cameraPermission.state === 'granted' && micPermission.state === 'granted') {
+      // if (cameraPermission.state === 'granted' && micPermission.state === 'granted') {
+      //   this.permissionsGranted = true;
+      //   return true;
+      // }
+      
+      if ( micPermission.state === 'granted') {
         this.permissionsGranted = true;
         return true;
       }
-      
+
       return false;
     } catch (error) {
       console.error('Error checking permissions:', error);
@@ -33,7 +38,7 @@ class PermissionManager {
     try {
       // Request both camera and microphone access
       const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: true, 
+        // video: true, 
         audio: true 
       });
       

@@ -1,20 +1,20 @@
 // Service Worker for TB Sense PWA
-const CACHE_NAME = 'TB_Sense-v3';
+const CACHE_NAME = 'TB-Sense-Data-Acquisition-v1';
 const urlsToCache = [
-  '/TBSense/',
-  '/TBSense/index.html',
-  '/TBSense/passport_scan.html',
-  '/TBSense/cough_record.html',
-  '/TBSense/show_result.html',
-  '/TBSense/style.css',
-  '/TBSense/js/config.js',
-  '/TBSense/js/index.js',
-  '/TBSense/js/passport_scan.js',
-  '/TBSense/js/cough_record.js',
-  '/TBSense/js/show_result.js',
-  '/TBSense/js/pwa-init.js',
-  '/TBSense/js/permissions.js',
-  '/TBSense/manifest.json'
+  '/TB-SENSE-DATA-ACQ/',
+  '/TB-SENSE-DATA-ACQ/index.html',
+  '/TB-SENSE-DATA-ACQ/passport_scan.html',
+  '/TB-SENSE-DATA-ACQ/cough_record.html',
+  '/TB-SENSE-DATA-ACQ/show_result.html',
+  '/TB-SENSE-DATA-ACQ/style.css',
+  '/TB-SENSE-DATA-ACQ/js/config.js',
+  '/TB-SENSE-DATA-ACQ/js/index.js',
+  '/TB-SENSE-DATA-ACQ/js/passport_scan.js',
+  '/TB-SENSE-DATA-ACQ/js/cough_record.js',
+  '/TB-SENSE-DATA-ACQ/js/show_result.js',
+  '/TB-SENSE-DATA-ACQ/js/pwa-init.js',
+  '/TB-SENSE-DATA-ACQ/js/permissions.js',
+  '/TB-SENSE-DATA-ACQ/manifest.json'
 ];
 
 // Install event - cache resources
@@ -85,7 +85,7 @@ self.addEventListener('fetch', event => {
         }).catch(error => {
           console.log('Fetch failed:', error);
           // You can return a custom offline page here
-          return caches.match('/TB_Sense/index.html');
+          return caches.match('/TB-SENSE-DATA-ACQ/index.html');
         });
       })
   );
