@@ -1,45 +1,46 @@
 // Service Worker for TB Sense PWA
-const CACHE_NAME = 'TB-Sense-Data-Acquisition-v1';
+const CACHE_NAME = "TB-Sense-Data-Acquisition-v2";
 const urlsToCache = [
-  '/TB-SENSE-DATA-ACQ/',
-  '/TB-SENSE-DATA-ACQ/index.html',
-  '/TB-SENSE-DATA-ACQ/passport_scan.html',
-  '/TB-SENSE-DATA-ACQ/cough_record.html',
-  '/TB-SENSE-DATA-ACQ/show_result.html',
-  '/TB-SENSE-DATA-ACQ/style.css',
-  '/TB-SENSE-DATA-ACQ/js/config.js',
-  '/TB-SENSE-DATA-ACQ/js/index.js',
-  '/TB-SENSE-DATA-ACQ/js/passport_scan.js',
-  '/TB-SENSE-DATA-ACQ/js/cough_record.js',
-  '/TB-SENSE-DATA-ACQ/js/show_result.js',
-  '/TB-SENSE-DATA-ACQ/js/pwa-init.js',
-  '/TB-SENSE-DATA-ACQ/js/permissions.js',
-  '/TB-SENSE-DATA-ACQ/manifest.json'
+  "/TB-SENSE-DATA-ACQ/",
+  "/TB-SENSE-DATA-ACQ/index.html",
+  // '/TB-SENSE-DATA-ACQ/passport_scan.html',
+  "/TB-SENSE-DATA-ACQ/cough_record.html",
+  "/TB-SENSE-DATA-ACQ/show_result.html",
+  "/TB-SENSE-DATA-ACQ/style.css",
+  "/TB-SENSE-DATA-ACQ/js/config.js",
+  "/TB-SENSE-DATA-ACQ/js/index.js",
+  // '/TB-SENSE-DATA-ACQ/js/passport_scan.js',
+  "/TB-SENSE-DATA-ACQ/js/cough_record.js",
+  "/TB-SENSE-DATA-ACQ/js/show_result.js",
+  "/TB-SENSE-DATA-ACQ/js/pwa-init.js",
+  "/TB-SENSE-DATA-ACQ/js/permissions.js",
+  "/TB-SENSE-DATA-ACQ/manifest.json",
 ];
 
 // Install event - cache resources
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => {
+        console.log("Opened cache");
         return cache.addAll(urlsToCache);
       })
-      .catch(err => {
-        console.log('Cache installation failed:', err);
+      .catch((err) => {
+        console.log("Cache installation failed:", err);
       })
   );
   self.skipWaiting();
 });
 
 // Activate event - clean up old caches
-self.addEventListener('activate', event => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map(cacheName => {
+        cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
+            console.log("Deleting old cache:", cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -50,50 +51,54 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", (event) => {
   // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
+    caches.match(event.request).then((response) => {
+      // Cache hit - return response
+      if (response) {
+        return response;
+      }
 
-        // Clone the request
-        const fetchRequest = event.request.clone();
+      // Clone the request
+      const fetchRequest = event.request.clone();
 
-        return fetch(fetchRequest).then(response => {
+      return fetch(fetchRequest)
+        .then((response) => {
           // Check if valid response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+          if (
+            !response ||
+            response.status !== 200 ||
+            response.type !== "basic"
+          ) {
             return response;
           }
 
           // Clone the response
           const responseToCache = response.clone();
 
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
 
           return response;
-        }).catch(error => {
-          console.log('Fetch failed:', error);
+        })
+        .catch((error) => {
+          console.log("Fetch failed:", error);
           // You can return a custom offline page here
-          return caches.match('/TB-SENSE-DATA-ACQ/index.html');
+          return caches.match("/TB-SENSE-DATA-ACQ/index.html");
         });
-      })
+    })
   );
 });
 
 // Handle messages from clients
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
