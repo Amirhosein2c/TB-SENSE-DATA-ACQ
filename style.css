@@ -140,10 +140,10 @@ select::-moz-selection {
   color: #fff !important;
 }
 
-.dark input, .dark textarea, .dark select {
-  color: #f8fafc !important; /* Light text for dark mode */
-  background-color: #1e293b !important; /* Dark background for dark mode */
-}
+/* .dark input, .dark textarea, .dark select {
+  color: #f8fafc !important; 
+  background-color: #1e293b !important;
+} */
 
 /* Force readable text color for all inputs regardless of theme */
 input[type="text"], input[type="number"], input[type="email"], input[type="password"], textarea, select {
@@ -188,13 +188,13 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
 }
 
 /* Light and dark theme color variables */
-:root {
+/* :root {
   --background-light: #f8fafc;
   --background-dark: #101c22;
   --primary: #1193d4;
   --text-light: #0f172a;
   --text-dark: #f8fafc;
-}
+} */
 
 body {
   background-color: var(--background-light);
