@@ -188,11 +188,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Function to run cough test
   async function runCoughTest() {
     const patientForm = document.getElementById('patientForm');
-    if (!patientForm.checkValidity()) {
-      alert('Please fill out all patient details.');
-      // Optionally, you can add code here to highlight the invalid fields.
-      return;
-    }
+    // if (!patientForm.checkValidity()) {
+    //   alert('Please fill out all patient details.');
+    //   // Optionally, you can add code here to highlight the invalid fields.
+    //   return;
+    // }
 
     if (!recordedAudioBlob) {
       alert('Please record a cough sample first.');

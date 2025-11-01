@@ -68,7 +68,7 @@
           <h2
             class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6 text-right"
           >
-            ورود اطلاعات
+            ورود اطلاعات بیمار
           </h2>
           <form id="patientForm" class="space-y-4 mb-8">
             <div>
@@ -81,6 +81,7 @@
                 type="text"
                 id="patientName"
                 name="patientName"
+                dir="rtl"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 required
               />
@@ -95,6 +96,11 @@
                 type="text"
                 id="nationalId"
                 name="nationalId"
+                dir="rtl"
+                inputmode="numeric"
+                pattern="\\d{10}"
+                maxlength="10"
+                placeholder="کد ملی ۱۰ رقمی"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 required
               />
@@ -105,13 +111,18 @@
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
                 >سن بیمار (سال)</label
               >
-              <input
-                type="number"
+              <select
                 id="patientAge"
                 name="patientAge"
+                dir="rtl"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 required
-              />
+              >
+                <option value="">انتخاب سن</option>
+                ${Array.from({ length: 120 }, (_, i) => `
+                <option value="${i + 1}">${i + 1}</option>
+                `).join("")}
+              </select>
             </div>
 
             <div>
@@ -120,13 +131,17 @@
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
                 >جنسیت بیمار</label
               >
-              <input
-                type="text"
+              <select
                 id="patientGender"
                 name="patientGender"
+                dir="rtl"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 required
-              />
+              >
+                <option value="">انتخاب کنید</option>
+                <option value="مرد">مرد</option>
+                <option value="زن">زن</option>
+              </select>
             </div>
 
             <div>
@@ -135,13 +150,14 @@
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
                 >سابقه بیماری زمینه ای</label
               >
-              <input
-                type="text"
+              <textarea
                 id="patientBGDisease"
                 name="patientBGDisease"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                dir="rtl"
+                rows="3"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm resize-y"
                 required
-              />
+              ></textarea>
             </div>
           </form>
           <div class="flex-grow flex flex-col justify-end gap-4">

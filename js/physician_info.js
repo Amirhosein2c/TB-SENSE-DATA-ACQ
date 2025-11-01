@@ -1,21 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const physicianNameInput = document.getElementById('physicianName');
-  const nextBtn = document.getElementById('nextBtn');
-  const backBtn = document.getElementById('backBtn');
+// Tailwind CSS Configuration
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#1193d4",
+        "background-light": "#f6f7f8",
+        "background-dark": "#101c22",
+      },
+      fontFamily: {
+        display: ["Public Sans"],
+      },
+      borderRadius: {
+        DEFAULT: "0.25rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
+        full: "9999px",
+      },
+    },
+  },
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const physicianNameInput = document.getElementById("physicianName");
+  const nextPageBtn = document.getElementById("nextPageBtn");
+  const backBtn = document.getElementById("backBtn");
 
   if (backBtn) {
-    backBtn.addEventListener('click', () => {
-      window.location.href = 'index.html';
+    backBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
     });
   }
 
-  nextBtn.addEventListener('click', () => {
-    const physicianName = physicianNameInput.value.trim();
-    if (physicianName) {
-      localStorage.setItem('physicianName', physicianName);
-      window.location.href = 'cough_record.html';
-    } else {
-      alert('Please enter the physician\'s name.');
-    }
-  });
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener("click", () => {
+      const physicianName = physicianNameInput.value.trim();
+      if (physicianName) {
+        localStorage.setItem("physicianName", physicianName);
+        window.location.href = "cough_record.html";
+      } else {
+        alert("Please enter the physician's name.");
+      }
+    });
+  }
 });

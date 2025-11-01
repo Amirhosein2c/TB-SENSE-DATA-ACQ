@@ -155,10 +155,30 @@ input, textarea, select {
   }
 }
 
+/* Light and dark theme color variables */
+:root {
+  --background-light: #f8fafc;
+  --background-dark: #101c22;
+  --primary: #1193d4;
+  --text-light: #0f172a;
+  --text-dark: #f8fafc;
+}
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+.dark body {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
 /* Dark mode refinements for mobile */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #101c22;
+    background-color: var(--background-dark);
+    color: var(--text-dark);
   }
 }
 
