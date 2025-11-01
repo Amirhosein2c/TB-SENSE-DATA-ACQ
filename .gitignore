@@ -62,3 +62,7 @@ deploy-to-github.sh
 start-server.sh
 # Local Netlify folder
 .netlify
+
+
+certs
+certs/*
