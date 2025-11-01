@@ -82,7 +82,7 @@
                 id="patientName"
                 name="patientName"
                 dir="rtl"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               />
             </div>
@@ -101,7 +101,7 @@
                 pattern="\\d{10}"
                 maxlength="10"
                 placeholder="کد ملی ۱۰ رقمی"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               />
             </div>
@@ -115,15 +115,22 @@
                 id="patientAge"
                 name="patientAge"
                 dir="rtl"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               >
                 <option value="">انتخاب سن</option>
-                ${Array.from({ length: 120 }, (_, i) => `
-                <option value="${i + 1}">${i + 1}</option>
-                `).join("")}
               </select>
             </div>
+
+            <script>
+              const ageSelect = document.getElementById("patientAge");
+              for (let i = 1; i <= 120; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                ageSelect.appendChild(option);
+              }
+            </script>
 
             <div>
               <label
@@ -135,7 +142,7 @@
                 id="patientGender"
                 name="patientGender"
                 dir="rtl"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               >
                 <option value="">انتخاب کنید</option>
@@ -155,7 +162,7 @@
                 name="patientBGDisease"
                 dir="rtl"
                 rows="3"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm resize-y"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm resize-y text-black"
                 required
               ></textarea>
             </div>
