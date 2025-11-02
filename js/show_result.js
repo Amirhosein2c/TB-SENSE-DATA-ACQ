@@ -23,7 +23,6 @@ tailwind.config = {
 
 // Load passport data when page loads
 document.addEventListener("DOMContentLoaded", function () {
-  loadPassportData();
   loadCoughAnalysisData();
   setupNavigationButtons();
 });
@@ -44,108 +43,65 @@ function setupNavigationButtons() {
 
   // Accept and Save button - start new patient flow
   if (acceptBtn) {
-    acceptBtn.addEventListener("click", function () {
-      // Clear all data from sessionStorage for new patient
-      sessionStorage.clear();
+    acceptBtn.addEventListener("click", async function () {
+      // Retrieve patient data from localStorage
+      const patientDataStr = localStorage.getItem("patientData");
+      if (!patientDataStr) {
+        alert("No patient data found to send.");
+        return;
+      }
 
-      // Navigate to passport scan page to start fresh
-      window.location.href = "cough_record.html";
+      const patientData = JSON.parse(patientDataStr);
+      console.log("Sending stored patient data to webhook:", patientData);
+
+      try {
+        const response = await fetch(WEBHOOKS.N8N_WEBHOOK, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(patientData),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Webhook response:", data);
+        alert("Data successfully sent to backend!");
+
+        // Clear all data from sessionStorage for new patient
+        sessionStorage.clear();
+        localStorage.removeItem("patientData");
+
+        // Navigate to cough_record.html to start fresh
+        window.location.href = "cough_record.html";
+      } catch (error) {
+        console.error("Error sending data to webhook:", error);
+        alert("Failed to send data to backend. Please try again.");
+      }
     });
   }
-}
 
-// Function to load passport data from sessionStorage
-function loadPassportData() {
-  const passportDataStr = sessionStorage.getItem("passportData");
-  const nameField = document.getElementById("nameField");
-  const dobField = document.getElementById("dobField");
-  const passportField = document.getElementById("passportField");
-  const nationalityField = document.getElementById("nationalityField");
-  const expirationField = document.getElementById("expirationField");
-
-  if (passportDataStr) {
+  // Display stored patient data in table
+  const patientDataStr = localStorage.getItem("patientData");
+  if (patientDataStr) {
     try {
-      let parsedData = JSON.parse(passportDataStr);
-
-      // Handle array response - webhook returns an array with one object
-      const data = Array.isArray(parsedData) ? parsedData[0] : parsedData;
-
-      console.log("Passport data in results:", data);
-
-      // Display full name
-      if (nameField && data.fullName) {
-        nameField.textContent = data.fullName;
-      } else if (nameField) {
-        nameField.innerHTML =
-          '<span class="text-slate-400">Not available</span>';
-      }
-
-      // Display date of birth
-      if (dobField && data.dateOfBirth) {
-        dobField.textContent = data.dateOfBirth;
-      } else if (dobField) {
-        dobField.innerHTML =
-          '<span class="text-slate-400">Not available</span>';
-      }
-
-      // Display passport number
-      if (passportField && data.passportNumber) {
-        passportField.textContent = data.passportNumber;
-      } else if (passportField) {
-        passportField.innerHTML =
-          '<span class="text-slate-400">Not available</span>';
-      }
-
-      // Display nationality
-      if (nationalityField && data.nationality) {
-        nationalityField.textContent = data.nationality;
-      } else if (nationalityField) {
-        nationalityField.innerHTML =
-          '<span class="text-slate-400">Not available</span>';
-      }
-
-      // Display expiration date
-      if (expirationField && data.expirationDate) {
-        expirationField.textContent = data.expirationDate;
-      } else if (expirationField) {
-        expirationField.innerHTML =
-          '<span class="text-slate-400">Not available</span>';
-      }
+      const patientData = JSON.parse(patientDataStr);
+      document.getElementById("nameField").textContent =
+        patientData.patientName || "N/A";
+      document.getElementById("dobField").textContent =
+        patientData.patientAge || "N/A";
+      document.getElementById("passportField").textContent =
+        patientData.nationalId || "N/A";
+      document.getElementById("nationalityField").textContent =
+        patientData.patientGender || "N/A";
+      document.getElementById("expirationField").textContent =
+        patientData.patientBGDisease || "N/A";
     } catch (error) {
-      console.error("Error parsing passport data:", error);
-      console.error("Raw data:", passportDataStr);
-
-      // Show error in all fields
-      if (nameField)
-        nameField.innerHTML =
-          '<span class="text-red-500">Error loading data</span>';
-      if (dobField)
-        dobField.innerHTML =
-          '<span class="text-red-500">Error loading data</span>';
-      if (passportField)
-        passportField.innerHTML =
-          '<span class="text-red-500">Error loading data</span>';
-      if (nationalityField)
-        nationalityField.innerHTML =
-          '<span class="text-red-500">Error loading data</span>';
-      if (expirationField)
-        expirationField.innerHTML =
-          '<span class="text-red-500">Error loading data</span>';
+      console.error("Error displaying patient data:", error);
     }
-  } else {
-    // No data found
-    console.warn("No passport data in sessionStorage");
-    if (nameField)
-      nameField.innerHTML = '<span class="text-slate-400">No data</span>';
-    if (dobField)
-      dobField.innerHTML = '<span class="text-slate-400">No data</span>';
-    if (passportField)
-      passportField.innerHTML = '<span class="text-slate-400">No data</span>';
-    if (nationalityField)
-      nationalityField.innerHTML =
-        '<span class="text-slate-400">No data</span>';
-    if (expirationField)
-      expirationField.innerHTML = '<span class="text-slate-400">No data</span>';
   }
 }
 

@@ -230,6 +230,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const patientBGDisease =
         document.getElementById("patientBGDisease").value;
 
+      // Retrieve physician name from localStorage (set in physician_info.html)
+      const physicianName = localStorage.getItem("physicianName") || "";
+
       // Store patient data and audio in localStorage
       const patientData = {
         patientName,
@@ -237,16 +240,17 @@ document.addEventListener("DOMContentLoaded", function () {
         patientAge,
         patientGender,
         patientBGDisease,
+        physicianName,
         audio: base64Audio,
       };
       localStorage.setItem("patientData", JSON.stringify(patientData));
       console.log(
-        "Patient data and audio stored in localStorage:",
+        "Patient data, physician name, and audio stored in localStorage:",
         patientData
       );
 
-      // Send audio and patient data to webhook
-      const response = await fetch(WEBHOOKS.COUGH_ANALYSIS, {
+      // Prepare data to post to backend n8n webhook
+      const response = await fetch(WEBHOOKS.N8N_WEBHOOK, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -254,12 +258,12 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify({
           audio: base64Audio,
           timestamp: new Date().toISOString(),
-          patientName: patientName,
-          nationalId: nationalId,
-          patientAge: patientAge,
-          patientGender: patientGender,
-          patientBGDisease: patientBGDisease,
-          physicianName: localStorage.getItem("physicianName") || "",
+          patientName,
+          nationalId,
+          patientAge,
+          patientGender,
+          patientBGDisease,
+          physicianName,
         }),
       });
 
