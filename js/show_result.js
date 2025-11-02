@@ -132,94 +132,70 @@ function loadCoughAnalysisData() {
   if (coughDataStr) {
     try {
       const parsed = JSON.parse(coughDataStr);
-      const data = parsed.data || parsed; // normalize structure
+      console.log("Parsed cough analysis data:", parsed);
 
-      console.log("Parsed cough analysis data:", data);
+      // ✅ Normalize structure: handle if it's an array or a single object
+      const data = Array.isArray(parsed) ? parsed[0] : parsed;
 
-      // ----- TEST RESULT -----
-      if (
-        testResultField &&
-        data.result !== undefined &&
-        data.result !== null
-      ) {
-        const resultValue = Number(data.result);
-        console.log("Numeric test result value:", resultValue);
-
-        if (isNaN(resultValue)) {
-          testResultField.className = "font-bold text-gray-500";
-          testResultField.textContent = `Invalid Result (${data.result})`;
-          return;
-        }
-
-        let resultLabel = "";
-        let colorClass = "text-slate-500";
-
-        if (resultValue > 75) {
-          resultLabel = "Highly Probable";
-          colorClass = "text-red-600";
-        } else if (resultValue > 50) {
-          resultLabel = "Weakly Probable";
-          colorClass = "text-orange-500";
-        } else if (resultValue > 25) {
-          resultLabel = "Weakly Negative";
-          colorClass = "text-green-500";
-        } else if (resultValue >= 0) {
-          resultLabel = "Highly Negative";
-          colorClass = "text-green-700";
-        } else {
-          resultLabel = "Invalid Result";
-          colorClass = "text-gray-500";
-        }
-
-        testResultField.className = `font-bold ${colorClass}`;
-        testResultField.textContent = `${resultLabel} (${resultValue.toFixed(
-          1
-        )}%)`;
-      } else if (testResultField) {
-        console.warn("No valid result field in cough data");
-        testResultField.className = "font-bold text-slate-400";
-        testResultField.textContent = "Not available";
+      if (!data) {
+        console.error("Cough data is empty or invalid:", parsed);
+        if (testResultField) testResultField.textContent = "Not available";
+        if (sampleQualityField)
+          sampleQualityField.textContent = "Not available";
+        return;
       }
 
-      // ----- SAMPLE QUALITY -----
-      if (sampleQualityField && data.quality) {
-        const qualityValue = String(data.quality).toLowerCase();
-        console.log("Sample quality:", qualityValue);
+      // ✅ Extract values
+      const resultValue = data.result;
+      const qualityValue = data.quality;
 
-        let colorClass = "text-slate-500";
-        if (qualityValue === "detected") colorClass = "text-green-600";
-        else if (qualityValue === "not_detected") colorClass = "text-red-500";
-        else if (qualityValue === "server_error" || qualityValue === "error")
-          colorClass = "text-blue-600";
+      console.log("Result value:", resultValue, "Quality value:", qualityValue);
 
-        sampleQualityField.className = `font-medium ${colorClass}`;
-        sampleQualityField.textContent =
-          qualityValue.charAt(0).toUpperCase() + qualityValue.slice(1);
-      } else if (sampleQualityField) {
-        console.warn("No valid quality field in cough data");
-        sampleQualityField.className = "font-medium text-slate-400";
-        sampleQualityField.textContent = "Not available";
-      }
-    } catch (error) {
-      console.error("Error parsing cough analysis data:", error);
-      if (testResultField) {
-        testResultField.className = "font-bold text-red-500";
-        testResultField.textContent = "Error loading data";
-      }
+      // ✅ Display sample quality
       if (sampleQualityField) {
-        sampleQualityField.className = "font-medium text-red-500";
-        sampleQualityField.textContent = "Error loading data";
+        if (qualityValue !== undefined && qualityValue !== null) {
+          sampleQualityField.textContent = qualityValue;
+        } else {
+          sampleQualityField.textContent = "Not available";
+        }
       }
+
+      // ✅ Display test result
+      if (testResultField) {
+        if (typeof resultValue === "number" && !isNaN(resultValue)) {
+          testResultField.textContent = `${resultValue}%`;
+        } else if (
+          typeof resultValue === "string" &&
+          resultValue.trim() !== ""
+        ) {
+          testResultField.textContent = resultValue;
+        } else {
+          testResultField.textContent = "Not available";
+        }
+      }
+
+      // ✅ Optional: color-coding (you can remove this section if not needed)
+      if (sampleQualityField) {
+        const q = qualityValue?.toLowerCase?.() || "";
+        if (q.includes("detected")) {
+          sampleQualityField.style.color = "green";
+        } else if (q.includes("not_detected")) {
+          sampleQualityField.style.color = "gray";
+        } else {
+          sampleQualityField.style.color = "black";
+        }
+      }
+    } catch (err) {
+      console.error("Error parsing coughAnalysisData:", err);
+      if (testResultField) testResultField.textContent = "Not available";
+      if (sampleQualityField) sampleQualityField.textContent = "Not available";
     }
   } else {
-    console.warn("No cough analysis data in sessionStorage");
-    if (testResultField) {
-      testResultField.className = "font-bold text-slate-400";
-      testResultField.textContent = "No data";
-    }
-    if (sampleQualityField) {
-      sampleQualityField.className = "font-medium text-slate-400";
-      sampleQualityField.textContent = "No data";
-    }
+    console.warn("No coughAnalysisData found in sessionStorage");
+    if (testResultField) testResultField.textContent = "Not available";
+    if (sampleQualityField) sampleQualityField.textContent = "Not available";
   }
 }
+
+// ✅ Run after page loads
+document.addEventListener("DOMContentLoaded", loadCoughAnalysisData);
