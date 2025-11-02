@@ -1,4 +1,3 @@
-// Tailwind CSS Configuration
 tailwind.config = {
   darkMode: "class",
   theme: {
@@ -35,25 +34,20 @@ function setupNavigationButtons() {
   // Retake button - go back to cough_record.html to record again
   if (retakeBtn) {
     retakeBtn.addEventListener("click", function () {
-      // Keep patient data in localStorage so user doesn't need to re-enter
       const patientDataStr = localStorage.getItem("patientData");
       if (patientDataStr) {
         const patientData = JSON.parse(patientDataStr);
-        // Remove only the recorded audio so user can record again
-        delete patientData.audio;
+        delete patientData.audio; // remove only recorded audio
         localStorage.setItem("patientData", JSON.stringify(patientData));
         console.log("Retake: kept patient info, removed audio data.");
       }
-
-      // Navigate back to cough recording page
       window.location.href = "cough_record.html";
     });
   }
 
-  // Accept and Save button - start new patient flow
+  // Accept and Save button - send to backend
   if (acceptBtn) {
     acceptBtn.addEventListener("click", async function () {
-      // Retrieve patient data from localStorage
       const patientDataStr = localStorage.getItem("patientData");
       if (!patientDataStr) {
         alert("No patient data found to send.");
@@ -61,23 +55,19 @@ function setupNavigationButtons() {
       }
 
       const patientData = JSON.parse(patientDataStr);
-
-      // Get cough analysis data from sessionStorage
       const coughDataStr = sessionStorage.getItem("coughAnalysisData");
+
       if (coughDataStr) {
         try {
           const coughData = JSON.parse(coughDataStr);
-          // Add test result and sample quality to patient data
           patientData.testResult = coughData.result || "N/A";
           patientData.sampleQuality = coughData.quality || "N/A";
         } catch (error) {
           console.error("Error parsing cough analysis data:", error);
-          // Set default values if parsing fails
           patientData.testResult = "Error";
           patientData.sampleQuality = "Error";
         }
       } else {
-        // Set default values if no cough data exists
         patientData.testResult = "N/A";
         patientData.sampleQuality = "N/A";
       }
@@ -87,25 +77,18 @@ function setupNavigationButtons() {
       try {
         const response = await fetch(WEBHOOKS.COUGH_STORAGE, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(patientData),
         });
 
-        if (!response.ok) {
+        if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
         const data = await response.json();
         console.log("Webhook response:", data);
-        // alert("Data successfully sent to backend!");
 
-        // Clear all data from sessionStorage for new patient
         sessionStorage.clear();
         localStorage.removeItem("patientData");
-
-        // Navigate to cough_record.html to start fresh
         window.location.href = "cough_record.html";
       } catch (error) {
         console.error("Error sending data to webhook:", error);
@@ -148,34 +131,33 @@ function loadCoughAnalysisData() {
       const data = JSON.parse(coughDataStr);
       console.log("Cough analysis data:", data);
 
-      // Display test result
-      if (testResultField && data.result) {
-        if (testResultField > 75) {
-          result = "Highly Probable";
-        } else if (75 >= result >= 50) {
-          result = "Weakly Probable";
-        } else if (50 > result >= 25) {
-          result = "Weakly Negative";
-        } else if (25 >= result >= 0) {
-          result = "Highly Negative";
-        }
-
-        // Set color based on result
+      // Display test result classification
+      if (testResultField && data.result !== undefined) {
+        const resultValue = Number(data.result);
+        let resultLabel = "";
         let colorClass = "text-slate-500";
-        if (result === "Highly Probable" || result === "Weakly Probable") {
-          colorClass = "text-red-500";
-        } else if (
-          result === "Weakly Negative" ||
-          result === "Highly Negative"
-        ) {
-          colorClass = "text-green-600";
-        } else if (result === "SERVER_ERROR") {
-          colorClass = "text-blue-600";
+
+        if (resultValue > 75) {
+          resultLabel = "Highly Probable";
+          colorClass = "text-red-600";
+        } else if (resultValue > 50) {
+          resultLabel = "Weakly Probable";
+          colorClass = "text-orange-500";
+        } else if (resultValue > 25) {
+          resultLabel = "Weakly Negative";
+          colorClass = "text-green-500";
+        } else if (resultValue >= 0) {
+          resultLabel = "Highly Negative";
+          colorClass = "text-green-700";
+        } else {
+          resultLabel = "Invalid Result";
+          colorClass = "text-gray-500";
         }
 
         testResultField.className = `font-bold ${colorClass}`;
-        testResultField.textContent =
-          data.result.charAt(0).toUpperCase() + data.result.slice(1);
+        testResultField.textContent = `${resultLabel} (${resultValue.toFixed(
+          1
+        )}%)`;
       } else if (testResultField) {
         testResultField.className = "font-bold text-slate-400";
         testResultField.textContent = "Not available";
@@ -184,16 +166,16 @@ function loadCoughAnalysisData() {
       // Display sample quality
       if (sampleQualityField && data.quality) {
         const quality = data.quality.toLowerCase();
-
-        // Set color based on quality
         let colorClass = "text-slate-500";
+
         if (quality === "detected") {
           colorClass = "text-green-600";
         } else if (quality === "not_detected") {
           colorClass = "text-red-500";
-        } else if (quality === "SERVER_ERROR" || quality === "ERROR") {
+        } else if (quality === "server_error" || quality === "error") {
           colorClass = "text-blue-600";
         }
+
         sampleQualityField.className = `font-medium ${colorClass}`;
         sampleQualityField.textContent =
           data.quality.charAt(0).toUpperCase() + data.quality.slice(1);
@@ -203,9 +185,7 @@ function loadCoughAnalysisData() {
       }
     } catch (error) {
       console.error("Error parsing cough analysis data:", error);
-      // console.error("Raw data:", coughDataStr);
 
-      // Show error
       if (testResultField) {
         testResultField.className = "font-bold text-red-500";
         testResultField.textContent = "Error loading data";
@@ -218,7 +198,6 @@ function loadCoughAnalysisData() {
   } else {
     console.warn("No cough analysis data in sessionStorage");
 
-    // Show no data message
     if (testResultField) {
       testResultField.className = "font-bold text-slate-400";
       testResultField.textContent = "No data";
