@@ -86,5 +86,18 @@
         </button>
       </footer>
     </div>
+    <div id="version" class="text-center text-xs text-gray-500 mb-2"></div>
+    <script>
+      fetch("sw.js")
+        .then((res) => res.text())
+        .then((text) => {
+          const match = text.match(/CACHE_NAME\s*=\s*["'][^"']*-(v[\d.]+)["']/);
+          if (match && match[1]) {
+            document.getElementById("version").textContent =
+              "Version " + match[1];
+          }
+        })
+        .catch((err) => console.error("Failed to load version:", err));
+    </script>
   </body>
 </html>
