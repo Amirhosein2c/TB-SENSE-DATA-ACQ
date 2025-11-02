@@ -29,6 +29,7 @@ let isRecording = false;
 let recordingStartTime = null;
 let recordingDuration = 0;
 let recordingTimer = null;
+let recordingSampleRate = null; // <--- NEW: store detected sample rate
 
 document.addEventListener("DOMContentLoaded", function () {
   const physicianName = localStorage.getItem("physicianName");
@@ -119,6 +120,16 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+      // 🔍 NEW: Detect and log microphone info + sample rate
+      const [audioTrack] = stream.getAudioTracks();
+      console.log("Microphone settings:", audioTrack.getSettings());
+      console.log("Microphone capabilities:", audioTrack.getCapabilities?.());
+
+      const audioCtx = new AudioContext();
+      const source = audioCtx.createMediaStreamSource(stream);
+      recordingSampleRate = audioCtx.sampleRate;
+      console.log("Detected recording sample rate:", recordingSampleRate);
+
       mediaRecorder = new MediaRecorder(stream);
       audioChunks = [];
       isRecording = true;
@@ -155,6 +166,14 @@ document.addEventListener("DOMContentLoaded", function () {
           "recordingDuration",
           recordingDuration.toFixed(1)
         );
+
+        // Save detected sample rate to sessionStorage (optional)
+        if (recordingSampleRate) {
+          sessionStorage.setItem(
+            "recordingSampleRate",
+            recordingSampleRate.toString()
+          );
+        }
 
         // Update final display
         if (durationSecondsSpan) {
@@ -222,11 +241,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to run cough test
   async function runCoughTest() {
     const patientForm = document.getElementById("patientForm");
-    // if (!patientForm.checkValidity()) {
-    //   alert('Please fill out all patient details.');
-    //   // Optionally, you can add code here to highlight the invalid fields.
-    //   return;
-    // }
 
     if (!recordedAudioBlob) {
       alert("Please record a cough sample first.");
@@ -268,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
         patientBGDisease,
         physicianName,
         audio: base64Audio,
+        sampleRate: recordingSampleRate, // <--- NEW: include sample rate
       };
       localStorage.setItem("patientData", JSON.stringify(patientData));
       console.log(
@@ -290,6 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
           patientGender,
           patientBGDisease,
           physicianName,
+          sampleRate: recordingSampleRate, // <--- send to backend
         }),
       });
 
