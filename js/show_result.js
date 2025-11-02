@@ -158,6 +158,8 @@ function loadCoughAnalysisData() {
           colorClass = "text-red-500";
         } else if (result === "negative") {
           colorClass = "text-green-600";
+        } else if (result === "SERVER_ERROR") {
+          colorClass = "text-blue-600";
         }
 
         testResultField.className = `font-bold ${colorClass}`;
@@ -184,8 +186,9 @@ function loadCoughAnalysisData() {
           colorClass = "text-red-500";
         } else if (quality === "fair" || quality === "moderate") {
           colorClass = "text-yellow-600";
+        } else if (quality === "SERVER_ERROR" || quality === "ERROR") {
+          colorClass = "text-blue-600";
         }
-
         sampleQualityField.className = `font-medium ${colorClass}`;
         sampleQualityField.textContent =
           data.quality.charAt(0).toUpperCase() + data.quality.slice(1);
