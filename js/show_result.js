@@ -61,6 +61,27 @@ function setupNavigationButtons() {
       }
 
       const patientData = JSON.parse(patientDataStr);
+
+      // Get cough analysis data from sessionStorage
+      const coughDataStr = sessionStorage.getItem("coughAnalysisData");
+      if (coughDataStr) {
+        try {
+          const coughData = JSON.parse(coughDataStr);
+          // Add test result and sample quality to patient data
+          patientData.testResult = coughData.result || "N/A";
+          patientData.sampleQuality = coughData.quality || "N/A";
+        } catch (error) {
+          console.error("Error parsing cough analysis data:", error);
+          // Set default values if parsing fails
+          patientData.testResult = "Error";
+          patientData.sampleQuality = "Error";
+        }
+      } else {
+        // Set default values if no cough data exists
+        patientData.testResult = "N/A";
+        patientData.sampleQuality = "N/A";
+      }
+
       console.log("Sending stored patient data to webhook:", patientData);
 
       try {
@@ -115,13 +136,6 @@ function setupNavigationButtons() {
     }
   }
 }
-
-// patientName,
-// nationalId,
-// patientAge,
-// patientGender,
-// patientBGDisease,
-// physicianName,
 
 // Function to load cough analysis data from sessionStorage
 function loadCoughAnalysisData() {
