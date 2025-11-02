@@ -150,13 +150,24 @@ function loadCoughAnalysisData() {
 
       // Display test result
       if (testResultField && data.result) {
-        const result = data.result.toLowerCase();
+        if (data.result > 75) {
+          result = "Highly Probable";
+        } else if (75 >= result >= 50) {
+          result = "Weakly Probable";
+        } else if (50 > result >= 25) {
+          result = "Weakly Negative";
+        } else if (25 >= result >= 0) {
+          result = "Highly Negative";
+        }
 
         // Set color based on result
         let colorClass = "text-slate-500";
-        if (result === "positive") {
+        if (result === "Highly Probable" || result === "Weakly Probable") {
           colorClass = "text-red-500";
-        } else if (result === "negative") {
+        } else if (
+          result === "Weakly Negative" ||
+          result === "Highly Negative"
+        ) {
           colorClass = "text-green-600";
         } else if (result === "SERVER_ERROR") {
           colorClass = "text-blue-600";
@@ -176,16 +187,10 @@ function loadCoughAnalysisData() {
 
         // Set color based on quality
         let colorClass = "text-slate-500";
-        if (
-          quality === "good" ||
-          quality === "acceptable" ||
-          quality === "excellent"
-        ) {
+        if (quality === "detected") {
           colorClass = "text-green-600";
-        } else if (quality === "poor" || quality === "bad") {
+        } else if (quality === "not_detected") {
           colorClass = "text-red-500";
-        } else if (quality === "fair" || quality === "moderate") {
-          colorClass = "text-yellow-600";
         } else if (quality === "SERVER_ERROR" || quality === "ERROR") {
           colorClass = "text-blue-600";
         }
