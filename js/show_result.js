@@ -195,7 +195,7 @@ function loadCoughAnalysisData() {
       }
     } catch (error) {
       console.error("Error parsing cough analysis data:", error);
-      console.error("Raw data:", coughDataStr);
+      // console.error("Raw data:", coughDataStr);
 
       // Show error
       if (testResultField) {
