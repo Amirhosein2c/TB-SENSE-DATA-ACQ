@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isRecording) {
         stopRecording();
       }
-      window.location.href = "index.html";
+      window.location.href = "physician_info.html";
     });
   }
 
