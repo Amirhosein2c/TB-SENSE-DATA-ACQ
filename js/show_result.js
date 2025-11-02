@@ -150,7 +150,7 @@ function loadCoughAnalysisData() {
 
       // Display test result
       if (testResultField && data.result) {
-        if (data.result > 75) {
+        if (testResultField > 75) {
           result = "Highly Probable";
         } else if (75 >= result >= 50) {
           result = "Weakly Probable";
