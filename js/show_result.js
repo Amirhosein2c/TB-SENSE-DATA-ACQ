@@ -20,6 +20,10 @@ tailwind.config = {
   },
 };
 
+// ✅ Global variables for cough result
+let resultValue = null;
+let qualityValue = null;
+
 // Load data when page loads
 document.addEventListener("DOMContentLoaded", function () {
   loadCoughAnalysisData();
@@ -55,25 +59,12 @@ function setupNavigationButtons() {
       }
 
       const patientData = JSON.parse(patientDataStr);
-      const coughDataStr = sessionStorage.getItem("coughAnalysisData");
 
-      if (coughDataStr) {
-        try {
-          const parsed = JSON.parse(coughDataStr);
-          const coughData = parsed.data || parsed; // handle both shapes
-          patientData.testResult = coughData.result ?? "N/A";
-          patientData.sampleQuality = coughData.quality ?? "N/A";
-        } catch (error) {
-          console.error("Error parsing cough analysis data:", error);
-          patientData.testResult = "Error";
-          patientData.sampleQuality = "Error";
-        }
-      } else {
-        patientData.testResult = "N/A";
-        patientData.sampleQuality = "N/A";
-      }
+      // ✅ Use the globally stored cough analysis values
+      patientData.testResult = resultValue ?? "N/A";
+      patientData.sampleQuality = qualityValue ?? "N/A";
 
-      console.log("Sending stored patient data to webhook:", patientData);
+      console.log("Final patient data before sending:", patientData);
 
       try {
         const response = await fetch(WEBHOOKS.COUGH_STORAGE, {
@@ -145,9 +136,9 @@ function loadCoughAnalysisData() {
         return;
       }
 
-      // ✅ Extract values
-      const resultValue = data.result;
-      const qualityValue = data.quality;
+      // ✅ Extract values (store globally for later use)
+      resultValue = data.result;
+      qualityValue = data.quality;
 
       console.log("Result value:", resultValue, "Quality value:", qualityValue);
 
