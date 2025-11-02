@@ -35,8 +35,17 @@ function setupNavigationButtons() {
   // Retake button - go back to cough_record.html to record again
   if (retakeBtn) {
     retakeBtn.addEventListener("click", function () {
+      // Keep patient data in localStorage so user doesn't need to re-enter
+      const patientDataStr = localStorage.getItem("patientData");
+      if (patientDataStr) {
+        const patientData = JSON.parse(patientDataStr);
+        // Remove only the recorded audio so user can record again
+        delete patientData.audio;
+        localStorage.setItem("patientData", JSON.stringify(patientData));
+        console.log("Retake: kept patient info, removed audio data.");
+      }
+
       // Navigate back to cough recording page
-      // The passport data remains in sessionStorage for the user to try again
       window.location.href = "cough_record.html";
     });
   }
@@ -89,21 +98,30 @@ function setupNavigationButtons() {
   if (patientDataStr) {
     try {
       const patientData = JSON.parse(patientDataStr);
-      document.getElementById("nameField").textContent =
+      document.getElementById("patientNameField").textContent =
         patientData.patientName || "N/A";
-      document.getElementById("dobField").textContent =
+      document.getElementById("patientAgeField").textContent =
         patientData.patientAge || "N/A";
-      document.getElementById("passportField").textContent =
+      document.getElementById("nationalIdField").textContent =
         patientData.nationalId || "N/A";
-      document.getElementById("nationalityField").textContent =
+      document.getElementById("patientGenderField").textContent =
         patientData.patientGender || "N/A";
-      document.getElementById("expirationField").textContent =
+      document.getElementById("patientBGDiseaseField").textContent =
         patientData.patientBGDisease || "N/A";
+      document.getElementById("physicianNameField").textContent =
+        patientData.physicianName || "N/A";
     } catch (error) {
       console.error("Error displaying patient data:", error);
     }
   }
 }
+
+// patientName,
+// nationalId,
+// patientAge,
+// patientGender,
+// patientBGDisease,
+// physicianName,
 
 // Function to load cough analysis data from sessionStorage
 function loadCoughAnalysisData() {

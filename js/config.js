@@ -2,10 +2,11 @@
 // Webhook API Endpoints
 
 const WEBHOOKS = {
-  // MRZ_SCAN: 'https://api.perceptionist.top/webhook-test/tb_sense_mrz',
-  // COUGH_ANALYSIS: 'https://api.perceptionist.top/webhook/cough-data-acq',
-  // MRZ_SCAN: 'https://api.perceptionist.top/webhook/tb_sense_mrz',
-  COUGH_ANALYSIS: "https://api.perceptionist.top/webhook-test/cough-data-acq",
+  // COUGH_ANALYSIS: "https://api.perceptionist.top/webhook/cough-data-analysis",
+  // DATA_STORAGE: "https://api.perceptionist.top/webhook/cough-data-store",
+  COUGH_ANALYSIS:
+    "https://api.perceptionist.top/webhook-test/cough-data-analysis",
+  DATA_STORAGE: "https://api.perceptionist.top/webhook-test/cough-data-store",
   // Add more webhook URLs here as needed
   // RESULT_SUBMISSION: 'https://api.perceptionist.top/webhook-test/tb_sense_result',
 };

@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       // Prepare data to post to backend n8n webhook
-      const response = await fetch(WEBHOOKS.N8N_WEBHOOK, {
+      const response = await fetch(WEBHOOKS.COUGH_ANALYSIS, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
