@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextPageBtn = document.getElementById("nextPageBtn");
   const backBtn = document.getElementById("backBtn");
 
+  // Pre-fill physician name if stored
+  const savedPhysicianName = localStorage.getItem("physicianName");
+  if (savedPhysicianName && physicianNameInput) {
+    physicianNameInput.value = savedPhysicianName;
+  }
+
   if (backBtn) {
     backBtn.addEventListener("click", () => {
       window.location.href = "index.html";
