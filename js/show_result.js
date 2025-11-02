@@ -64,7 +64,7 @@ function setupNavigationButtons() {
       console.log("Sending stored patient data to webhook:", patientData);
 
       try {
-        const response = await fetch(WEBHOOKS.N8N_WEBHOOK, {
+        const response = await fetch(WEBHOOKS.COUGH_STORAGE, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -86,6 +86,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Pre-fill patient form fields from localStorage if available
+  const savedPatientDataStr = localStorage.getItem("patientData");
+  if (savedPatientDataStr) {
+    try {
+      const savedPatientData = JSON.parse(savedPatientDataStr);
+      if (savedPatientData.patientName)
+        document.getElementById("patientName").value =
+          savedPatientData.patientName;
+      if (savedPatientData.nationalId)
+        document.getElementById("nationalId").value =
+          savedPatientData.nationalId;
+      if (savedPatientData.patientAge)
+        document.getElementById("patientAge").value =
+          savedPatientData.patientAge;
+      if (savedPatientData.patientGender)
+        document.getElementById("patientGender").value =
+          savedPatientData.patientGender;
+      if (savedPatientData.patientBGDisease)
+        document.getElementById("patientBGDisease").value =
+          savedPatientData.patientBGDisease;
+      console.log("Pre-filled patient form with saved data:", savedPatientData);
+    } catch (error) {
+      console.error("Error pre-filling patient form:", error);
+    }
+  }
+
   // Function to start recording
   async function startRecording() {
     if (isRecording) return;
