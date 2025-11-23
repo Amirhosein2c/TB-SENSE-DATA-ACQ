@@ -107,9 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (savedPatientData.patientBGDisease)
         document.getElementById("patientBGDisease").value =
           savedPatientData.patientBGDisease;
-      if (savedPatientData.patientGTTB)
-        document.getElementById("patientGTTB").value =
-          savedPatientData.patientGTTB;
+      if (savedPatientData.physicianGTTB)
+        document.getElementById("physicianGTTB").value =
+          savedPatientData.physicianGTTB;
       console.log("Pre-filled patient form with saved data:", savedPatientData);
     } catch (error) {
       console.error("Error pre-filling patient form:", error);
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const nationalId = document.getElementById("nationalId").value;
       const patientAge = document.getElementById("patientAge").value;
       const patientGender = document.getElementById("patientGender").value;
-      const patientGTTB = document.getElementById("patientGTTB").value;
+      const physicianGTTB = document.getElementById("physicianGTTB").value;
       const select = document.getElementById("patientBGDisease");
       const patientBGDisease = Array.from(select.selectedOptions).map(
         (option) => option.value
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
         patientAge,
         patientGender,
         patientBGDisease,
-        patientGTTB,
+        physicianGTTB,
         physicianName,
         audio: base64Audio,
         sampleRate: recordingSampleRate, // <--- NEW: include sample rate
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
           patientAge,
           patientGender,
           patientBGDisease,
-          patientGTTB,
+          physicianGTTB,
           physicianName,
           sampleRate: recordingSampleRate, // <--- send to backend
         }),

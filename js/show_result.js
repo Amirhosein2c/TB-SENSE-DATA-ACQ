@@ -106,6 +106,8 @@ function setupNavigationButtons() {
         patientData.patientBGDisease || "N/A";
       document.getElementById("physicianNameField").textContent =
         patientData.physicianName || "N/A";
+      document.getElementById("physicianGTTBField").textContent =
+        patientData.physicianGTTB || "N/A";
     } catch (error) {
       console.error("Error displaying patient data:", error);
     }
