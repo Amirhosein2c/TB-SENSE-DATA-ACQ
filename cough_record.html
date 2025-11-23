@@ -14,7 +14,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <title>TB Sense - Passport Details</title>
+    <title>TB Sense - Patient Details</title>
 
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="icons/icon-152x152.png" />
@@ -157,14 +157,23 @@
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
                 >سابقه بیماری زمینه ای</label
               >
-              <textarea
+              <!-- patientBGDisease -->
+              <select
                 id="patientBGDisease"
                 name="patientBGDisease"
                 dir="rtl"
-                rows="3"
-                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm resize-y text-black"
+                class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
+                multiple
                 required
-              ></textarea>
+              >
+                <!-- <option value="">انتخاب کنید</option> -->
+                <option value="آسم">آسم</option>
+                <option value="قارچ ریه">قارچ ریه</option>
+                <option value="برونشک تازی">برونشک تازی</option>
+                <option value="دیابت نوع ۱">دیابت نوع ۱</option>
+                <option value="دیابت نوع ۲">دیابت نوع ۲</option>
+                <option value="دیابت بارداری">دیابت بارداری</option>
+              </select>
             </div>
           </form>
           <div class="flex-grow flex flex-col justify-end gap-4">

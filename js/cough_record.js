@@ -267,8 +267,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const nationalId = document.getElementById("nationalId").value;
       const patientAge = document.getElementById("patientAge").value;
       const patientGender = document.getElementById("patientGender").value;
-      const patientBGDisease =
-        document.getElementById("patientBGDisease").value;
+      // const patientBGDisease =
+      //   document.getElementById("patientBGDisease").value;
+      const select = document.getElementById("patientBGDisease");
+      const patientBGDisease = Array.from(select.selectedOptions).map(
+        (option) => option.value
+      );
 
       // Retrieve physician name from localStorage (set in physician_info.html)
       const physicianName = localStorage.getItem("physicianName") || "";
