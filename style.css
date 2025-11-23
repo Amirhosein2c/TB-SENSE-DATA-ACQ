@@ -30,15 +30,15 @@ body {
 /* Mobile-first responsive containers */
 @media (max-width: 640px) {
   body {
-    font-size: 14px;
+    font-size: 12px;
   }
   
   h1 {
-    font-size: 1.25rem;
+    font-size: 1.0rem;
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -117,7 +117,7 @@ video, canvas {
 
 /* Improve form input on mobile */
 input, textarea, select {
-  font-size: 16px; /* Prevents zoom on iOS */
+  font-size: 14px; /* Prevents zoom on iOS */
   color: #111 !important; /* Force readable dark text */
   background-color: #fff !important; /* Maintain white background */
   -webkit-text-fill-color: #111 !important; /* Fix for iOS Safari */
@@ -163,7 +163,7 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
 /* Landscape mode adjustments */
 @media (orientation: landscape) and (max-height: 500px) {
   body {
-    font-size: 12px;
+    font-size: 10px;
   }
   
   .flex-col {
@@ -224,7 +224,7 @@ body {
   color: white;
   text-align: center;
   padding: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   z-index: 1000;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;

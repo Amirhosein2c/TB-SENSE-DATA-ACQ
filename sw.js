@@ -1,5 +1,5 @@
 // Service Worker for TB Sense PWA
-const CACHE_NAME = "TB-Sense-Data-Acquisition-v2.9.2";
+const CACHE_NAME = "TB-Sense-Data-Acquisition-v2.9.3";
 const urlsToCache = [
   "/TB-SENSE-DATA-ACQ/",
   "/TB-SENSE-DATA-ACQ/index.html",
