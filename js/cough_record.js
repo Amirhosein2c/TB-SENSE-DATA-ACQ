@@ -104,9 +104,20 @@ document.addEventListener("DOMContentLoaded", function () {
       if (savedPatientData.patientGender)
         document.getElementById("patientGender").value =
           savedPatientData.patientGender;
-      if (savedPatientData.patientBGDisease)
-        document.getElementById("patientBGDisease").value =
-          savedPatientData.patientBGDisease;
+
+      // if (savedPatientData.patientBGDisease)
+      //   document.getElementById("patientBGDisease").value =
+      //     savedPatientData.patientBGDisease;
+
+      if (savedPatientData.patientBGDisease) {
+        const select = document.getElementById("patientBGDisease");
+        const savedValues = savedPatientData.patientBGDisease; // array of strings
+
+        Array.from(select.options).forEach((opt) => {
+          opt.selected = savedValues.includes(opt.value);
+        });
+      }
+
       if (savedPatientData.physicianGTTB)
         document.getElementById("physicianGTTB").value =
           savedPatientData.physicianGTTB;
