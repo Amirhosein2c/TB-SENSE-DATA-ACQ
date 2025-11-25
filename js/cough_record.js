@@ -290,6 +290,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Retrieve physician name from localStorage (set in physician_info.html)
       const physicianName = localStorage.getItem("physicianName") || "";
 
+      // Retrieve Medical Center name from localStorage (set in physician_info.html)
+      const centerName = localStorage.getItem("centerName") || "";
+
       // Store patient data and audio in localStorage
       const patientData = {
         patientName,
@@ -299,6 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
         patientBGDisease,
         physicianGTTB,
         physicianName,
+        centerName,
         audio: base64Audio,
         sampleRate: recordingSampleRate, // <--- NEW: include sample rate
       };
@@ -324,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
           patientBGDisease,
           physicianGTTB,
           physicianName,
+          centerName,
           sampleRate: recordingSampleRate, // <--- send to backend
         }),
       });
