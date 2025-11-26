@@ -172,10 +172,10 @@ function loadCoughAnalysisData() {
       // ✅ Optional: color-coding (you can remove this section if not needed)
       if (sampleQualityField) {
         const q = qualityValue?.toLowerCase?.() || "";
-        if (q.includes("detected")) {
+        if (q.includes("true")) {
           sampleQualityField.style.color = "green";
-        } else if (q.includes("not_detected")) {
-          sampleQualityField.style.color = "gray";
+        } else if (q.includes("false")) {
+          sampleQualityField.style.color = "red";
         } else {
           sampleQualityField.style.color = "black";
         }
