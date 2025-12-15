@@ -79,8 +79,9 @@ function setupNavigationButtons() {
         const data = await response.json();
         console.log("Webhook response:", data);
 
-        sessionStorage.clear();
-        localStorage.removeItem("patientData");
+        // sessionStorage.clear();
+        // localStorage.removeItem("patientData");
+        // delete patientData.audio;
         window.location.href = "cough_record.html";
       } catch (error) {
         console.error("Error sending data to webhook:", error);

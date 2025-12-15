@@ -117,10 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("patientGender").value =
           savedPatientData.patientGender;
 
-      // if (savedPatientData.patientBGDisease)
-      //   document.getElementById("patientBGDisease").value =
-      //     savedPatientData.patientBGDisease;
-
       if (savedPatientData.patientBGDisease) {
         const select = document.getElementById("patientBGDisease");
         const savedValues = savedPatientData.patientBGDisease; // array of strings
