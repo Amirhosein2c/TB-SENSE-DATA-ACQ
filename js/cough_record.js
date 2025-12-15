@@ -47,6 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load and display previous recording duration if exists
   loadRecordingDuration();
 
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('focus', function() {
+      this.value = '';
+    }, { once: true });
+  });
+
+  document.querySelectorAll('select').forEach(select => {
+    select.addEventListener('focus', function() {
+      this.selectedIndex = 0;
+    }, { once: true });
+  });
+
   // Back button navigation
   if (backBtn) {
     backBtn.addEventListener("click", function () {
