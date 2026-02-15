@@ -1,5 +1,5 @@
 // Service Worker for TB Sense PWA
-const CACHE_NAME = "TB-Sense-Data-Acquisition-v2.10.11";
+const CACHE_NAME = "TB-Sense-Data-Acquisition-v2.10.12";
 const urlsToCache = [
   "/TB-SENSE-DATA-ACQ/",
   "/TB-SENSE-DATA-ACQ/index.html",
@@ -28,7 +28,7 @@ self.addEventListener("install", (event) => {
       })
       .catch((err) => {
         console.log("Cache installation failed:", err);
-      })
+      }),
   );
   self.skipWaiting();
 });
@@ -43,9 +43,9 @@ self.addEventListener("activate", (event) => {
             console.log("Deleting old cache:", cacheName);
             return caches.delete(cacheName);
           }
-        })
+        }),
       );
-    })
+    }),
   );
   self.clients.claim();
 });
@@ -92,7 +92,7 @@ self.addEventListener("fetch", (event) => {
           // You can return a custom offline page here
           return caches.match("/TB-SENSE-DATA-ACQ/index.html");
         });
-    })
+    }),
   );
 });
 

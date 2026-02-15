@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -8,7 +8,7 @@
     />
     <meta
       name="description"
-      content="TB Sense - Passport Details & Cough Recording"
+      content="TB Sense - Patient's Details & Cough Recording"
     />
     <meta name="theme-color" content="#1193d4" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -68,14 +68,14 @@
           <h2
             class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6 text-right"
           >
-            ورود اطلاعات بیمار
+            Patient's Details Data Entry
           </h2>
           <form id="patientForm" class="space-y-3 mb-8">
             <div>
               <label
                 for="patientName"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >نام بیمار</label
+                >Patient Name</label
               >
               <input
                 type="text"
@@ -90,7 +90,7 @@
               <label
                 for="nationalId"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >کد ملی</label
+                >National ID Number</label
               >
               <input
                 type="text"
@@ -100,7 +100,7 @@
                 inputmode="numeric"
                 pattern="\\d{10}"
                 maxlength="10"
-                placeholder="کد ملی ۱۰ رقمی"
+                placeholder="10 Digit National ID Number"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               />
@@ -109,7 +109,7 @@
               <label
                 for="patientAge"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >سن بیمار (سال)</label
+                >Patient's Age (Years)</label
               >
               <select
                 id="patientAge"
@@ -124,7 +124,7 @@
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               > -->
-                <option value="">انتخاب سن</option>
+                <option value="">Patient's Age Selection</option>
               </select>
             </div>
 
@@ -142,7 +142,7 @@
               <label
                 for="patientGender"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >جنسیت بیمار</label
+                >Patient's Gender</label
               >
               <select
                 id="patientGender"
@@ -151,9 +151,9 @@
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black"
                 required
               >
-                <option value="">انتخاب کنید</option>
-                <option value="مرد">مرد</option>
-                <option value="زن">زن</option>
+                <option value="">Please select:</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
 
@@ -161,7 +161,7 @@
               <label
                 for="patientBGDisease"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >سابقه بیماری زمینه ای</label
+                >Patient's Pre-existing Conditions</label
               >
               <!-- patientBGDisease -->
               <select
@@ -174,13 +174,13 @@
               >
                 <!-- <option value="">انتخاب کنید</option> -->
                 <!-- <option value="">یک یا چند مورد را انتخاب کنید</option> -->
-                <option value="آسم">آسم</option>
-                <option value="قارچ ریه">قارچ ریه</option>
-                <option value="برونشکتازی">برونشکتازی</option>
-                <option value="دیابت">دیابت</option>
-                <option value="بیماری قلبی">بیماری قلبی</option>
-                <option value="هپاتیت">هپاتیت</option>
-                <option value="ایدز">ایدز</option>
+                <option value="asthma">asthma</option>
+                <option value="Lung fungus">Lung fungus</option>
+                <option value="Bronchiectasis">Bronchiectasis</option>
+                <option value="Diabetes">diabetes</option>
+                <option value="heart disease">heart disease</option>
+                <option value="hepatitis">hepatitis</option>
+                <option value="HIV">HIV</option>
               </select>
             </div>
 
@@ -188,7 +188,7 @@
               <label
                 for="physicianGTTB"
                 class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-right"
-                >تشخیص پزشک</label
+                >Phsician's Diagnosis</label
               >
               <select
                 id="physicianGTTB"
@@ -198,9 +198,9 @@
                 required
               >
                 <!-- <option value="">انتخاب کنید</option> -->
-                <option value="سل دارد">سل دارد</option>
-                <option value="سل ندارد">سل ندارد</option>
-                <option value="نا مشخص">نا مشخص</option>
+                <option value="TB Positive">TB Positive</option>
+                <option value="TB Negative">TB Negative</option>
+                <option value="undetermined">undetermined</option>
               </select>
             </div>
           </form>
@@ -232,7 +232,9 @@
                   d="M128,176a48.05,48.05,0,0,0,48-48V64a48,48,0,0,0-96,0v64A48.05,48.05,0,0,0,128,176ZM96,64a32,32,0,0,1,64,0v64a32,32,0,0,1-64,0Zm40,143.6V232a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64,64,0,0,0,128,0,8,8,0,0,1,16,0A80.11,80.11,0,0,1,136,207.6Z"
                 ></path>
               </svg>
-              <span id="recordBtnText" class="text-lg">شروع ضبط صدای سرفه</span>
+              <span id="recordBtnText" class="text-lg"
+                >Start Recording Cough Sample</span
+              >
             </button>
           </div>
         </main>
